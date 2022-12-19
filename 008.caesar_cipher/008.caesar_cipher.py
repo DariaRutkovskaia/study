@@ -11,13 +11,13 @@ def caesar(plain_text, shift_amount, direction_func):
     cipher_text = ""
     for letter in plain_text:
         if letter not in alphabet:
-            new_letter = letter
+            cipher_text += letter
         else:
             new_index = alphabet.index(letter) + shift_amount
             if new_index > len(alphabet) - 1:
                 new_index -= len(alphabet)
             new_letter = alphabet[new_index]
-        cipher_text += new_letter
+            cipher_text += new_letter
     print(f"The {direction_func}d text is\n{cipher_text}")
 
 
