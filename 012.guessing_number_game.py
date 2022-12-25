@@ -10,7 +10,6 @@ def number_game():
     global attempts_remaining
     while not game_over and attempts_remaining > 0:
         print(f"You have {attempts_remaining} attempts remaining to guess the number.")
-        print("Guess again.")
         user_guess = int(input("Make a guess: "))
         if user_guess == hidden_number:
             print(f"You got it! The answer was {hidden_number}.")
@@ -18,9 +17,11 @@ def number_game():
         elif user_guess > hidden_number:
             attempts_remaining -= 1
             print("Too high.")
+            print("Guess again.")
         elif user_guess < hidden_number:
             attempts_remaining -= 1
             print("Too low.")
+            print("Guess again.")
     if attempts_remaining == 0:
         print(f"You run out of attempts, you lose. The answer was {hidden_number}")
 
