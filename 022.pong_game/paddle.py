@@ -29,4 +29,3 @@ class Paddle(Turtle):
             self.forward(50)
             self.stamp()
             self.forward(50)
-

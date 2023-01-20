@@ -1,6 +1,7 @@
-from turtle import Turtle
 from random import choice
-START_ANGLES =[45, 135, 225, 315]
+from turtle import Turtle
+
+START_ANGLES = [45, 135, 225, 315]
 
 
 class Ball(Turtle):
