@@ -24,6 +24,10 @@ class Ball(Turtle):
     def bounce_x(self):
         self.x_step *= (-1)
 
+    def refresh(self):
+        self.home()
+        self.x_step *= (-1)
+
 
     # def create(self):
 
