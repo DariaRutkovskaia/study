@@ -1,6 +1,6 @@
 from turtle import Turtle
 from random import choice, randint
-COLORS = ["salmon", "tomato", "gold", "LimeGreen", "Turquoise", "DodgerBlue", "orchid", "DeepPink"]
+COLORS = ["red", "orange", "yellow", "green", "Royalblue", "blue", "purple"]
 START_X = 280
 
 

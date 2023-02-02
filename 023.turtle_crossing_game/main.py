@@ -5,8 +5,7 @@ from car import Car
 from player import Player
 from scoreboard import Scoreboard
 
-START_POSITION = (0, -270)
-time_speed = 0.2
+time_speed = 0.1
 screen = Screen()
 board = Scoreboard()
 screen.setup(width=600, height=600)
@@ -26,14 +25,14 @@ while game_is_on:
     time.sleep(time_speed)
     car.flow()
 
-    if player.ycor() >= 290:
-        time_speed *= 0.9
-        player.goto(START_POSITION)
+    if player.is_on_finish_line():
+        player.go_to_start()
         car.create_more_cars()
         board.level_up()
 
     for any_car in car.car_list[1:]:
         if any_car.distance(player) <= 20:
             game_is_on = False
+            board.game_over()
 
 screen.exitonclick()
