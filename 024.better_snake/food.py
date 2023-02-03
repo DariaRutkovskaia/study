@@ -10,7 +10,7 @@ class Food(Turtle):
         self.penup()
         self.shapesize(stretch_wid=0.5, stretch_len=0.5)
         self.speed(0)
-        self.color("royalblue")
+        self.color("blue")
         self.refresh()
 
     def refresh(self):
