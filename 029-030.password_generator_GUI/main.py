@@ -1,3 +1,4 @@
+import json
 from random import choice, randint, shuffle
 from tkinter import *
 from tkinter import messagebox
@@ -28,18 +29,48 @@ def save_password():
     website = website_entry.get()
     username = username_entry.get()
     password = password_entry.get()
+    new_data = {
+        website: {
+            "email": username,
+            "password": password
+        }
+    }
 
     if website != "" and username != "" and password != "":
-        is_ok = messagebox.askyesno(title=website, message=f"This is the information to save: \n"
-                                                           f"email:{username} \n"
-                                                           f"password: {password} \n is it ok to save?")
-        if is_ok:
-            with open("data.txt", "a") as data_file:
-                data_file.write(f"{website} | {username} | {password}\n")
-                website_entry.delete(0, END)
-                password_entry.delete(0, END)
+        try:
+            with open("data.json", "r") as data_file:
+                data = json.load(data_file)
+
+        except FileNotFoundError:
+            with open("data.json", "w") as data_file:
+                json.dump(new_data, data_file, indent=4)
+
+        else:
+            data.update(new_data)
+            with open("data.json", "w") as data_file:
+                json.dump(data, data_file, indent=4)
+
+        finally:
+            website_entry.delete(0, END)
+            password_entry.delete(0, END)
     else:
         messagebox.showinfo(title="Enter the info", message=f"Don't leave any fields empty!")
+
+
+# ---------------------------- SEARCH PASSWORD ------------------------------- #
+def search():
+    website = website_entry.get()
+    try:
+        with open("data.json", "r") as data_file:
+            data = json.load(data_file)
+            existed_password = data[website]
+    except KeyError:
+        messagebox.showinfo(title="Ooops", message=f"No details for{website} exists")
+    except FileNotFoundError:
+        messagebox.showinfo(title="Ooops", message=f"Password list does not exist")
+    else:
+        messagebox.showinfo(title=f"{website}", message=f"email: {existed_password['email']}\n"
+                                                        f"password: {existed_password['password']}")
 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -62,10 +93,9 @@ username_label.grid(row=2, column=0)
 password_label = Label(text="Password:")
 password_label.grid(row=3, column=0)
 
-website_entry = Entry(width=36)
+website_entry = Entry()
 website_entry.focus()
-
-website_entry.grid(sticky="ew", row=1, column=1, columnspan=2)
+website_entry.grid(sticky="ew", row=1, column=1)
 
 username_entry = Entry(width=36)
 username_entry.insert(0, "my_email@mail.com")
@@ -81,5 +111,8 @@ generate_button.grid(sticky="w", row=3, column=2)
 
 add_button = Button(text="Add", width=36, command=save_password)
 add_button.grid(sticky="ew", row=4, column=1, columnspan=2)
+
+search_button = Button(text="Search", command=search)
+search_button.grid(sticky="ew", row=1, column=2)
 
 window.mainloop()
