@@ -3,8 +3,8 @@ import random
 import smtplib
 
 my_email = "rutkovskiileonid@gmail.com"
-password = "mzptznnphgzjhvkv"
-planned_day = 6
+password = "kfczavmjooajtwfr"
+planned_day = 0
 
 
 def send_a_quote():
