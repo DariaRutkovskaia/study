@@ -1,13 +1,14 @@
+import os
+
 import requests
 from twilio.rest import Client
 
 STOCK = "TSLA"
 COMPANY_NAME = "Tesla Inc"
-ST_APIKEY = "MFI3AF2NPB97FHI9"
-NEWS_APIKEY = "8afc1ba2beac4527857c00e180c9ee79"
-account_sid = 'AC2e2e35368f3a999033b5c3cc475a5aca'
-auth_token = '481b73bc907faea70d35e133d792f7a7'
-
+ST_APIKEY = os.environ["stock_api_key"]
+NEWS_APIKEY = os.environ["news_api_key"]
+ACCOUNT_SID = os.environ["account_sid"]
+AUTH_TOKEN = os.environ["auth_token"]
 
 
 def check_percent():
@@ -62,7 +63,7 @@ def get_news():
 
 
 def send_sms(text):
-    client = Client(account_sid, auth_token)
+    client = Client(ACCOUNT_SID, AUTH_TOKEN)
     message = client.messages \
         .create(
         body=f"{text}",

@@ -1,9 +1,10 @@
 import datetime as dt
+import os
 
 import requests
 
-USERNAME = "dariarutkovskaia"
-TOKEN = "qazxcdews"
+USERNAME = os.environ["username"]
+TOKEN = os.environ["token"]
 GRAPH_ID = "graph1"
 pixela_endpoint = "https://pixe.la/v1/users"
 user_params = {
@@ -45,8 +46,8 @@ pixel_params = {
     "date": formatted_date,
     "quantity": minutes,
 }
-# p_response = requests.post(url=pixel_endpoint, json=pixel_params, headers=headers)
-# print(p_response.text)
+p_response = requests.post(url=pixel_endpoint, json=pixel_params, headers=headers)
+print(p_response.text)
 
 ## Update Pixel
 # new_data = input("How many minutes? ")

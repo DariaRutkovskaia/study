@@ -1,12 +1,12 @@
-import requests
-from twilio.rest import Client
 import os
 
+import requests
+from twilio.rest import Client
 
 API_KEY = os.environ["owm_api_key"]
-OWM_endpoint = "https://api.openweathermap.org/data/3.0/onecall"
-account_sid = 'AC2e2e35368f3a999033b5c3cc475a5aca'
-auth_token = '481b73bc907faea70d35e133d792f7a7'
+OWM_ENDPOINT = "https://api.openweathermap.org/data/3.0/onecall"
+ACCOUNT_SID = os.environ["account_sid"]
+AUTH_TOKEN = os.environ["auth_token"]
 MY_LAT = 59.938480
 MY_LON = 30.312481
 
@@ -17,12 +17,12 @@ parameters = {"appid": API_KEY,
               "exclude": "current,minutely,daily,alerts",
               "units": "metric",
               }
-response = requests.get(url=OWM_endpoint, params=parameters)
+response = requests.get(url=OWM_ENDPOINT, params=parameters)
 response.raise_for_status()
 weather_data = response.json()
 for i in range(12):
     if weather_data["hourly"][i]["weather"][0]["id"] < 700:
-        client = Client(account_sid, auth_token)
+        client = Client(ACCOUNT_SID, AUTH_TOKEN)
         message = client.messages \
             .create(
             body="На улице дождь, возьми зонт.",
